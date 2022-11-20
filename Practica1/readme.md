@@ -57,3 +57,10 @@ El comando netstat genera visualizaciones que muestran el estado de la red y est
   * lsof -i :numero_puerto : muestra los archivos abiertos por el puerto especificado.
 
 ## 4. Identificar servicios desplegados
+
+Con el comando ss -l, se puede observar diferentes servicios. Estos son:
+* ssh: 22
+* http: 80
+* rtnl:NetworkManager/650, es un servicio de red que se utiliza para gestionar los dispositivos de red y las conexiones.
+* rtnl:xdg-desktop-por/2819, se relaciona con el escritorio de la computadora en el sistema ubuntu.
+* Con el comando lsof, se puede observar un proceso: 2235183 /usr/lib/x86_64-linux-gnu/libjansson.so.4.13. Este se relaciona con una liberia de jansson, que es una librería de C para analizar JSON. Esta librería se utiliza para analizar los datos JSON de la API de Docker.
