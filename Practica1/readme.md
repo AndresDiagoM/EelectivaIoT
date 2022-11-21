@@ -28,7 +28,29 @@ Configuración de entorno y red
     
     > Para comprobar el funcionamiento
 
+  * Conceder permisos: sudo usermod -aG docker ${USER}
+  * Iniciar el servicio: sudo systemctl start docker
+
+  * Instalar una imagen: 
+    * sudo docker pull ubuntu:latest
+
+  * Ver las imagenes instaladas:
+  * docker images
+  
+  * ver los contenedores:
+  * docker ps -a
+
+  *Desplegar una base de datos: buscar en docker hub
+    * docker pull mongo
+
+
 ## 3. Reconocimiento de herramientas de red
+
+* Comando ifconfig: muestra la configuración de red de la máquina
+
+* Comando ip: 
+  * ip addr: muestra la configuración de red de la máquina
+  * 
 
 * [Comando ss:](https://www.ochobitshacenunbyte.com/2020/09/01/como-se-usa-el-comando-ss-en-linux/)
     > Listar todas las conexiones
@@ -37,6 +59,9 @@ Configuración de entorno y red
   * ss -a, recupera una lista de puertos de escucha y no escucha.
   * ss -l, con el parámetro -l nos muestra únicamente los sockets que están escuchando
   * Con el parámetro -t podemos listar todas las conexiones TCP y con -u todas las conexiones UDP.
+  * ss | grep ESTAB, nos muestra las conexiones establecidas.
+  * ss | grep TIME-WAIT, nos muestra las conexiones TIME-WAIT.
+  * ss | grep containerd, nos muestra las conexiones que tiene el proceso containerd.
 
 * Comando netstat:
 El comando netstat genera visualizaciones que muestran el estado de la red y estadísticas de protocolo.
@@ -56,6 +81,11 @@ El comando netstat genera visualizaciones que muestran el estado de la red y est
   * lsof -c nombre_proceso : muestra los archivos abiertos por el proceso especificado.
   * lsof -i :numero_puerto : muestra los archivos abiertos por el puerto especificado.
 
+>Listar servicios por puertos:
+   * lsof -i -P -n, para observar el servidor de python
+
+
+
 ## 4. Identificar servicios desplegados
 
 Con el comando ss -l, se puede observar diferentes servicios. Estos son:
@@ -64,3 +94,11 @@ Con el comando ss -l, se puede observar diferentes servicios. Estos son:
 * rtnl:NetworkManager/650, es un servicio de red que se utiliza para gestionar los dispositivos de red y las conexiones.
 * rtnl:xdg-desktop-por/2819, se relaciona con el escritorio de la computadora en el sistema ubuntu.
 * Con el comando lsof, se puede observar un proceso: 2235183 /usr/lib/x86_64-linux-gnu/libjansson.so.4.13. Este se relaciona con una liberia de jansson, que es una librería de C para analizar JSON. Esta librería se utiliza para analizar los datos JSON de la API de Docker.
+
+## 5. Evaluar scripts en Python: 
+
+  * Crear un script con el [servidor web](https://rico-schmidt.name/pymotw-3/socket/tcp.html) de python:
+    * python3 server.py
+  
+  * Crear un script con el [cliente web](https://rico-schmidt.name/pymotw-3/socket/tcp.html) de python:
+    * python3 client.py
