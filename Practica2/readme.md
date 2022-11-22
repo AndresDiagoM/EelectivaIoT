@@ -108,3 +108,25 @@ NestJS al tratarse de un framework facilita la creación rápida de un servicio.
     http://192.168.18.143:3000
     ```
 
+## 1.3. Publicando el código en GitHub
+En la máquina virtual, se debe ingresar a la carpeta del proyecto y ejecutar los siguientes comandos:
+* Montar carpeta del proyecto:
+    ```bash
+    cd ~/Documents/Servidores/practica_02
+    ```
+* Inicializar repositorio git:
+    ```bash
+    git remote add origin <url_del_repositorio>
+    git remote add origin https://github.com/AndresDiagoM/ElectivaIoT.git
+    ```
+
+* Configurar usuario de Git::
+    ```bash
+    git config --global user.name "Andres Diago"
+    git config --global user.email "andresdiag@unicauca.edu.co"
+
+    git init
+  git add .
+  git commit -m "Primer commit"
+  git push --set-upstream origin master
+    ```
