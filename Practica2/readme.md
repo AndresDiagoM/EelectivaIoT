@@ -48,3 +48,63 @@ Para instalar NestJS, primero debemos instalar NodeJS. Para ello, abrimos una te
 
 
 ## 1.2. Ejecutando el ejemplo Hello World:
+NestJS al tratarse de un framework facilita la creación rápida de un servicio.
+
+1. Para iniciar seleccione o cree una carpeta donde se alojará el proyecto, por ejemplo:
+    ```bash
+    cd ~/Documents
+    mkdir Servidores
+    cd Servidores
+    ```	
+
+2. Crear un proyecto NestJS ejecutando el comando nest new, para el nombre del proyecto no usar espacios ni caracteres especiales:
+    ```bash
+    -> nest new <nombre-proyecto>
+    nest new practica_02
+    ```
+    La terminal preguntará si se desea usar yarn o npm, se recomienda usar npm.
+
+3. Es necesario identificar la dirección IP de la máquina, para esto se puede ejecutar el comando:
+
+    ```bash
+    hostname -I
+    ```
+    En la salida del comando se puede observar la dirección IP de la máquina, en este caso es 192.168.18.143 
+
+4. Node utiliza el archivo package.json para definir los scripts que se ejecutan con el comando npm run o yarn run. Para ejecutar el ejemplo Hello World, se debe montar la carpeta y ejecutar el comando:
+    ```bash
+    cd practica_02
+    npm run start:dev
+    ```
+    El comando anterior ejecuta el script start:dev definido en el archivo package.json, el cual ejecuta el comando nest start --watch, el cual monta la carpeta y ejecuta el servidor en modo desarrollo.
+
+    Para verificar los scripts disponibles, se puede ejecutar el comando:
+    ```bash
+    cat package.json
+    ```
+    Para detener la ejecución del servidor, presione Ctrl + C.
+
+5. Con lo anterior el servidor nos indica que está listo para recibir peticiones con el metodo GET en la ruta raíz. Por defecto el servidor escucha en el puerto 3000, para verificar esto se puede ejecutar el comando en otra terminal:
+
+    ```bash
+    npm run start:dev
+    netstat -tulpn | grep node
+    ```
+    La salida del comando anterior es:
+    ```bash
+    tcp6       0      0 :::3000                 :::*                    LISTEN      7448/node 
+    ```
+    Luego ya se puede probar el servidor con el comando en otra terminal:
+    ```bash
+    curl http://localhost:3000
+    ```
+    La terminal responderá con la siguiente información:
+    ```bash
+     Hello World!
+    ```
+
+    Así mismo en un navegador web en la máquina host se puede ingresar a la dirección `http://{{*direccion IP de la máquina virtual*}}:3000` y se mostrará la misma información.
+    ```bash	
+    http://192.168.18.143:3000
+    ```
+
