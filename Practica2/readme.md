@@ -1,6 +1,9 @@
 
 # PRÁCTICA 2
 
+#### NOMBRE: Andres Felipe Diago Matta
+#### Fecha: 27-nov-22
+
 ## Desarrollo de la práctica
 Creando un servidor REST
 
@@ -130,3 +133,63 @@ En la máquina virtual, se debe ingresar a la carpeta del proyecto y ejecutar lo
   git commit -m "Primer commit"
   git push --set-upstream origin master
     ```
+
+## 1.4. Los verbos HTTP
+Conectarse a la máquina virtual mediante la extensión de Remote ssh.
+Abrir el archivo app.controller.ts que se encuentra en la carpeta src y modificarlo para que quede de la siguiente manera:
+    
+    @Get()
+    getHello(): string {
+        return "Hola mundo";
+    }
+    
+Guardar los cambios y ejecutar el servidor:
+
+    
+        npm run start:dev
+    
+
+Para verificar que el servidor responde con el mensaje de texto, se debe ingresar la dirección IP del servidor en el navegador Web o usando el comando CURL como se hizo previamente.
+
+    
+    curl http://localhost:3000
+    
+
+## 1.5. Creando un modificador
+Primero se creará una variable para guardar un mensaje adicional, y esta variable será retornada por el método getHello().
+
+
+    private persona = "Mundo";
+
+    @Get()
+    getHello(): string {
+    return Hola: ${this.persona};
+    }
+
+Después se creará un método para modificar el mensaje adicional, y este método será invocado como un POST utilizando la ruta como entrada del parámetro nombre, entonces app.controller.ts quedará de la siguiente manera:
+
+import { Controller, Get, Param, Post } from '@nestjs/common';
+import { AppService } from './app.service';
+
+    @Controller()
+    export class AppController {
+    constructor(private readonly appService: AppService) {}
+
+    private persona = "Mundo";
+
+    @Get()
+    getHello(): string {
+        return `Hola: ${this.persona}`
+    }
+
+    @Post(':nombre')
+    modificar(@Param('nombre') nombre: string): string {
+        this.persona = nombre;
+        return `Mensaje modificado: ${this.persona}`
+    }
+    }
+
+Al guardar, el servidor automáticamente se reiniciará y se podrá probar el nuevo método usando CURL o el navegador Web.
+
+    curl -X POST http://<ip_del_servidor>:3000/Pikachu
+
