@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
-import { AppService } from './app.service';
+import { PersonService } from '../services/persona.service';
 
 interface Persona {
   nombre: string,
@@ -8,8 +8,8 @@ interface Persona {
 }
 
 @Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class PersonController {
+  constructor(private readonly appService: PersonService) {}
 
   
   /*private persona = "Mundo";

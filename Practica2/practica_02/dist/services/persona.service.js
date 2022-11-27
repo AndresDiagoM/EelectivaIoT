@@ -6,18 +6,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.PersonService = void 0;
 const common_1 = require("@nestjs/common");
-const persona_controller_1 = require("./controllers/persona.controller");
-const app_service_1 = require("./app.service");
-let AppModule = class AppModule {
+let PersonService = class PersonService {
+    getHello() {
+        return 'Hello World!';
+    }
 };
-AppModule = __decorate([
-    (0, common_1.Module)({
-        imports: [],
-        controllers: [persona_controller_1.PersonController],
-        providers: [app_service_1.AppService],
-    })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+PersonService = __decorate([
+    (0, common_1.Injectable)()
+], PersonService);
+exports.PersonService = PersonService;
+//# sourceMappingURL=persona.service.js.map
