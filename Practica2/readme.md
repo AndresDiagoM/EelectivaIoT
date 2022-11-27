@@ -201,7 +201,7 @@ Subir los cambios al repositorio de GitHub.
     git commit -m "Se agrego un metodo POST"
     git push origin master
 
-![Alt text](./imggit add/modificadorHTTP.png "lsof")
+![Alt text](./img/modificadorHTTP.png "lsof")
 
 
 ## 1.6. Experimente con las anotaciones @Put(), @Delete() y @Patch()
