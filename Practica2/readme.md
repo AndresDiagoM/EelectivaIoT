@@ -217,6 +217,16 @@ Opcionalmente puede emplear la recepción de parámetros por medio de Body para 
 
 ## 1.6.2. @GET()
 
+Recibiendo parámetros, se utiliza:
+
+    @Get(':id/:size')
+    findWithSize( @Param() params) {
+    return `En esta ruta obtenemos el producto ${params.id}, pero en su tamaño ${params.size}`;
+    }
+
+![Alt text](./img/GET2.png "lsof")
+
+Con el ejemplo de personas:
 ![Alt text](./img/GET.png "lsof")
 
 ## 1.6.2. @POST()
@@ -242,4 +252,45 @@ Para imprimir los parameteos que se reciben con POST, los cuales se envian como 
         return `Creo la persona ${nombre} con edad ${edad}.`;
     }
 
-![Alt text](./img/POST.png "lsof")
+![Alt text](./img/POST.png "post")
+
+Hemos aprendido a configurar rutas que atienden solicitudes por el método POST dentro de una aplicación NestJS.
+
+## 1.6.2. @PUT()
+Generalmente se usa para modificar un item dado de un recurso, hacer un update.
+
+Con el método de URL  es asi:
+
+    http://localhost/products/22
+
+El PUT se usa para una actualización de un dato. Por tanto generalmente lo haces contra un ítem, aquel que quieres actualizar, enviando los datos nuevos que quieres guardar en ese elemento.
+
+En PUT realizaremos una actualización de un recurso dado, por lo tanto tendremos que usar parámetros en la URL y datos que nos llegarán en el cuerpo de la solicitud (body).
+
+Por ejemplo: 
+
+    @Put(':id')
+    update(@Param('id') id: number, @Body() body) {
+    return `Estás haciendo una operación de actualización del recurso ${id} 
+            con ${body.name} y ${body.description}`;
+    }
+
+Se utiliza Postman para hacer una solicitud de tipo PUT con el envío de los datos raw en JSON, asi:
+
+![Alt text](./img/PUT.png "put")
+
+Se actuaslizo la persona con id 1, con los datos que se enviaron en el body.
+
+## 1.6.2. @PATCH()
+El decorador @Patch sirve para realizar actualizaciones parciales de un recurso, podemos cambiar simplemente el nombre o su descripción.
+
+Con el ejemplo de personas, se actualiza la edad, asi:
+
+![Alt text](./img/PATCH.png "PATCH")
+
+## 1.6.2. @DELETE()
+En esta ocasión no necesitaríamos recibir un body en la solicitud, ya que con una operación de DELETE solamente necesito el recurso (id) que se debe eliminar.
+
+En el ejemplo de las personas, solo se necesita el id, o posición dentro del arreglo:
+
+![Alt text](./img/DELETE.png "DELETE")
