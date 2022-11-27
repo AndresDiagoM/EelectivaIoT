@@ -1,66 +1,36 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
-import { PlayerService } from '../domain/services/player.service';
-
 import {Player} from '../domain/models/player.model';
 
-const errReturn = (e: Error, message: string) => {
-   return {
-      message: message,
-      error: e
-   }
-}
 
-@Controller()
-export class PlayerController {
-constructor(private readonly jugadorService: PlayerService) { }
+export interface PlayerController {
+   /**
+    *  Retorna la lista de jugadores
+    */
+   listPlayers();
 
-   @Get()
-   getHello() {
-      try{
-         return this.jugadorService.listar();
-      }
-      catch(e){
-         return errReturn(e, "Error al listar jugadores");
-      }
-   }
+   /**
+    * Crea un jugador
+    * @param datos Objeto con datos de jugador
+    */
+   create(datos: Player);
 
-   @Post()
-   crear(@Body() datos: Player) {
-      try{
-         return this.jugadorService.crear(datos);
-      }
-      catch(e){
-         return errReturn(e, "Error al crear jugador");
-      }
-   }
+   /**
+    * Modifica datos de un jugador
+    * @param datos Objeto con datos de jugador
+    * @param id Identificador único del jugador
+    */
+   update(datos: Player, id: number);
 
-   @Put(":id")
-   modificar(@Body() datos: Player, @Param('id') id: number) {
-      try{
-         return this.jugadorService.modificar(id, datos);
-      }
-      catch(e){
-         return errReturn(e, "Error al modificar jugador");
-      }
-   }
+   /**
+    * Elimina un jugador
+    * @param id Identificador único del jugador
+    */
+   delete(id: number);
 
-   @Delete(":id")
-   eliminar(@Param('id') id: number) {
-      try{
-         return this.jugadorService.eliminar(id);
-      }
-      catch(e){
-         return errReturn(e, "Error al eliminar jugador");
-      }
-   }
+   /**
+    * Cambia la edad de un jugador
+    * @param id Identificador único del jugador
+    * @param edad Edad del jugador
+    */
+   updateAge(id: number, edad: number);
 
-   @Patch(":id/edad/:edad")
-   cambiarEdad(@Param('id') id: number, @Param('edad') edad: number) {
-      try{
-         return this.jugadorService.cambiarEdad(id, edad);
-      }
-      catch(e){
-         return errReturn(e, "Error al modificar edad del jugador");
-      }
-   }
 }

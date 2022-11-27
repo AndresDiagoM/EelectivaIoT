@@ -1,63 +1,38 @@
-import { Injectable } from '@nestjs/common';
-// Importamos el modelo de jugador
-import { Player } from '../models/player.model';
+import { Player } from "../models/player.model";
 
-@Injectable()
-export class PlayerService {
-
-   // Como no hay base de datos aun empleamos una variable en memoria:
-   private player: Player[] = [{
-      name: 'Leo',
-      lastName: 'Messi',
-      age: 35,
-      team: 'Argentina'
-   }]
+export interface PlayerService {
 
    /**
-    * Método para obtener todos los jugadores
+    * Retorna la lista de jugadores registrados
     */
-   public listar() : Player[] {
-      return this.player
-   }
+   list(): Player[];
 
    /**
-    * Método para crear un jugador
+    * Crea un nuevo jugador
+    * @param player datos del nuevo jugador
+    * @return Nuevo jugador
     */
-   public crear(jugador: Player): Player {
-      this.player.push(jugador);
-      return jugador;
-   }
+   create(player: Player): Player;
 
    /**
-    * Método para modificar un jugador
+    * Actualiza datos de jugador
+    * @param id Identificador único del jugador
+    * @param player datos del jugador
+    * @return Jugador modificado
     */
-   public modificar(id: number, jugador: Player): Player {
-         this.player[id] = jugador
-         return this.player[id];
-   }
+   update(id: number, player: Player): Player
 
    /**
-    * Método para eliminar un jugador
-    * Debido a que usamos un filtro, para validar si se elimina el jugador, 
-    * primero se determina cuantos elementos hay en el arreglo y luego se hace una comparación.
+    * Eliminar un jugador
+    * @param id Identificador único del jugador
+    * @return True si eliminó al jugador
     */
-   public eliminar(id: number): boolean {
-      const totalJugadoresAntes = this.player.length;
-      this.player = this.player.filter((val, index) => index != id);
-      if(totalJugadoresAntes == this.player.length){
-         return false;
-      }
-      else{
-         return true;
-      }
-   }
+   delete(id: number): boolean
 
    /**
-    * Método para modificar la edad de un jugador
+    * Cambia la edad de un jugador
+    * @param id Identificador único del jugador
+    * @param age nuevo valor de edad 
     */
-   public cambiarEdad(id: number, edad: number): Player {
-      this.player[id].age = edad;
-      return this.player[id];
-   }
-
+   updateAge(id: number, age: number): Player
 }

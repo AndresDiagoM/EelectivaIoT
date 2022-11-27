@@ -1,10 +1,15 @@
 import { Module } from '@nestjs/common';
-import { PlayerController } from './players/controllers/player.controller';
-import { PlayerService } from './players/domain/services/player.service';
+import { PlayerControllerImpl } from './players/controllers/playerImpl.controller';
+import { PlayerServiceImpl } from './players/domain/services/playerImpl.service';
 
 @Module({
   imports: [],
-  controllers: [PlayerController],
-  providers: [PlayerService],
+  controllers: [PlayerControllerImpl],
+  providers: [
+    {
+      provide: 'PlayerService',
+      useClass: PlayerServiceImpl
+    }
+  ],
 })
 export class AppModule {}
