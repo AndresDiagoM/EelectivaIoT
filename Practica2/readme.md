@@ -153,6 +153,7 @@ Para verificar que el servidor responde con el mensaje de texto, se debe ingresa
 
     
     curl http://localhost:3000
+    http://192.168.18.152:3000/Pikachu
     
 
 ## 1.5. Creando un modificador
@@ -193,3 +194,52 @@ Al guardar, el servidor automáticamente se reiniciará y se podrá probar el nu
 
     curl -X POST http://<ip_del_servidor>:3000/Pikachu
 
+Subir los cambios al repositorio de GitHub.
+
+    cd ~Documents/Servidores/practica_02
+    git add .
+    git commit -m "Se agrego un metodo POST"
+    git push origin master
+
+![Alt text](./imggit add/modificadorHTTP.png "lsof")
+
+
+## 1.6. Experimente con las anotaciones @Put(), @Delete() y @Patch()
+
+Para cada una de las anotaciones utilice los verbos para crear, modificar, eliminar y actualizar, es decir un CRUD para modificar una entidad.
+
+    @Post() - Se usa para crear un recurso.
+    @Put() - Actualiza un recurso.
+    @Delete() - Elimina un recurso.
+    @Patch() - Actualiza un recurso parcialmente.
+
+Opcionalmente puede emplear la recepción de parámetros por medio de Body para los verbos POST, PUT y PATCH. Para esto se debe importar la anotación @Body() desde el paquete @nestjs/common.
+
+## 1.6.2. @GET()
+
+![Alt text](./img/GET.png "lsof")
+
+## 1.6.2. @POST()
+Lo normal en una solicitud por POST es que el usuario nos mande información, que puede ser variable en función de las necesidades de la aplicación.
+
+Desde nuestro código en NestJS debemos acceder a esos datos, que nos llegan en el body, o cuerpo, de la solicitud.
+
+El decorador que vamos a aprender ahora se llama @Body y lo usamos en el parámetro del método que resuelve esta request. Este decorador provocará que el parámetro decorado contenga un valor con todos los datos recibidos en el request POST.
+
+Se puede probar con:
+
+    crear(@Body() body) {
+        return body;
+    }
+
+Para imprimir los parameteos que se reciben con POST, los cuales se envian como JSON, se utiliza asi:
+
+    @Post()
+    createProduct(
+        @Body('nombre') nombre: string, 
+        @Body('edad') edad: string
+    ) {
+        return `Creo la persona ${nombre} con edad ${edad}.`;
+    }
+
+![Alt text](./img/POST.png "lsof")
