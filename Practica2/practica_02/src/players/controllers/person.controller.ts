@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
-import { PersonService } from '../services/persona.service';
+import { PersonService } from '../domain/services/persona.service';
 
 interface Persona {
   nombre: string,
