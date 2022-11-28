@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlayerControllerImpl = void 0;
 const common_1 = require("@nestjs/common");
 const player_model_1 = require("../domain/models/player.model");
+const passport_1 = require("@nestjs/passport");
 const errReturn = (e, message) => {
     return {
         message: message,
@@ -73,6 +74,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PlayerControllerImpl.prototype, "listPlayers", null);
 __decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('local')),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

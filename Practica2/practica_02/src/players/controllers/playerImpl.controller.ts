@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, Put , UseGuards } from '@nestjs/common';
 import { PlayerService } from '../domain/services/player.service';
 
 import {Player} from '../domain/models/player.model';
 import { PlayerController } from './player.controller';
+import { AuthGuard } from '@nestjs/passport';
 
 const errReturn = (e: Error, message: string) => {
   return {
@@ -25,6 +26,7 @@ export class PlayerControllerImpl implements PlayerController {
     }
   }
 
+  @UseGuards(AuthGuard('local'))
   @Post()
   create(@Body() datos: Player) {
     try{

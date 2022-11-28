@@ -10,11 +10,13 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const playerImpl_controller_1 = require("./players/controllers/playerImpl.controller");
 const playerImpl_service_1 = require("./players/domain/services/playerImpl.service");
+const auth_module_1 = require("./auth/auth.module");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
+        imports: [auth_module_1.AuthModule, users_module_1.UsersModule],
         controllers: [playerImpl_controller_1.PlayerControllerImpl],
         providers: [
             {

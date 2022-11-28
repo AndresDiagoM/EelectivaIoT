@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { PlayerControllerImpl } from './players/controllers/playerImpl.controller';
 import { PlayerServiceImpl } from './players/domain/services/playerImpl.service';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [],
+  imports: [AuthModule, UsersModule],
   controllers: [PlayerControllerImpl],
   providers: [
     {
