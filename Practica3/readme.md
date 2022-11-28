@@ -88,3 +88,39 @@ Para conseguirlo puede emplearse el comando `curl` de la siguiente manera:
 
 Creando un jugador con contraseña:
 ![Alt text](./img/post1.png "post1")
+
+## 3. Autenticación con JWT
+
+ 1. Para implementar la autenticación con JWT se debe instalar el paquete @nestjs/jwt:
+
+        npm install --save @nestjs/jwt passport-jwt
+        npm install --save-dev @types/passport-jwt
+
+
+ 2. Se modifica auth.service.ts adicionando el método login y algunas dependencias.
+
+*SE SIGUEN LOS PASOS DE LA PRACTICA 3*
+
+ 10. Si todo es correcto, será posible llamar al endpoint que genera un token JWT, esto se podrá validar con CURL con el siguiente comando:
+
+    curl -X POST http://localhost:3000/auth/login -d '{"username": "john", "password": "changeme" }' -H "Content-Type: application/json"
+La terminal responderá con un token. Guarde este token para usarlo en los siguientes pasos.
+
+    {"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTY2OTYwNjQxNiwiZXhwIjoxNjY5NjEwMDE2fQ._fgep0Bf_hCL9EvENMPeRntLCzZ7U50O_E9KX1ef1YY"}
+
+ 11. Proteger el endpoint POST.
+ 12. Si todo es correcto, será posible llamar al endpoint que genera un token JWT, esto se podrá validar con CURL con el siguiente comando, recuerde usar el token que generó en el paso 10:
+
+    curl -X POST http://localhost:3000 -d '{"name": "Radamel", "lastname": "Falcao", "age": 36 }' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vybm...""
+
+    curl -X POST http://192.168.18.155:3000 -d '{"name": "Radamel", "lastname": "Falcao", "age": 36 }' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTY2OTYwNzExOSwiZXhwIjoxNjY5NjEwNzE5fQ.iIW6c6ReOOktCSBj2jAKlxEGv7EoUwl1YpuTa1OW3Ek"
+
+
+
+La terminal responderá con el objeto creado. Si no se envía el token o el token es incorrecto, la terminal responderá con un error 401.
+
+![Alt text](./img/post2.png "post2")
+
+Utilizando POSTMAN, con el header de Authorization:
+
+![Alt text](./img/post3.png "post3")
