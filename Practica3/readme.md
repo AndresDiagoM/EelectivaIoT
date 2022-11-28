@@ -46,6 +46,45 @@ Para esta parte de la práctica continúe con la entidad u objeto que decidió m
  6. Se implementa los principios SOLID.
 
 
-![Alt text](./img/DELETE.png "DELETE")
 
+## 2. Implementado seguridad
 
+En este caso vamos a implementar un sistema de autenticación y autorización para que los usuarios puedan acceder a los recursos del servidor.
+
+ 1. nstalar el paquete @nestjs/passport y passport, que permitirá implementar la autenticación y autorización.
+
+        npm install --save @nestjs/passport passport passport-local
+        npm install --save-dev @types/passport-local
+
+ 2. NestJS integra un método para generar módulos rápidamente, primero se creará un módulo para autenticación con los siguientes comandos:
+   
+        nest g module auth
+        nest g service auth
+    Ahora aparecerá una carpeta de nombre auth en la carpeta src con los archivos auth.module.ts y auth.service.ts y un archivo auth.service.spec.ts que contiene las pruebas unitarias del servicio, este último no lo utilizaremos.
+ 3. Asi mismo se creará un módulo para gestionar usuarios
+   
+        nest g module users
+        nest g service users
+ 
+ 4. Luego, se implementa el servicio de usuarios, para este ejemplo se utilizarán un par de usuarios predefinidos, pero en un caso real se debería implementar un servicio que permita gestionar usuarios.
+   
+   *SE SIGUEN LOS PASOS DE LA PRACTICA 3*
+
+ 11. Si todo está bien, en este punto al llamar al enpoint POST del servidor la respuesta debería ser esta:
+    
+    {
+    "statusCode": 401,
+    "message": "Unauthorized"
+    }
+    
+
+Esto indica que está prohibido el acceso al recurso, ya que no se ha autenticado al usuario.
+
+Para conseguirlo puede emplearse el comando `curl` de la siguiente manera:
+
+    curl -X POST http://localhost:3000 -d '{"username": "john", "password": "changeme", "name":"jugador"}' -H "Content-Type: application/json"
+
+![Alt text](./img/auth.png "auth")
+
+Creando un jugador con contraseña:
+![Alt text](./img/post1.png "post1")
