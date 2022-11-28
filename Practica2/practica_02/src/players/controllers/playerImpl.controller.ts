@@ -5,6 +5,9 @@ import {Player} from '../domain/models/player.model';
 import { PlayerController } from './player.controller';
 import { AuthGuard } from '@nestjs/passport';
 
+//JWT
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+
 const errReturn = (e: Error, message: string) => {
   return {
     message: message,
@@ -26,7 +29,8 @@ export class PlayerControllerImpl implements PlayerController {
     }
   }
 
-  @UseGuards(AuthGuard('local'))
+  //@UseGuards(AuthGuard('local'))
+  @UseGuards(JwtAuthGuard) // Se adiciona esta anotación para proteger el endpoint
   @Post()
   create(@Body() datos: Player) {
     try{
