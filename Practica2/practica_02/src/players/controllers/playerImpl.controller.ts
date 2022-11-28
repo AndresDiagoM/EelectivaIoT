@@ -19,6 +19,8 @@ const errReturn = (e: Error, message: string) => {
 export class PlayerControllerImpl implements PlayerController {
   constructor(@Inject('PlayerService') private readonly jugadorService: PlayerService) { }
 
+  //@UseGuards(AuthGuard('local')) // Se adiciona esta anotación
+  @UseGuards(JwtAuthGuard)
   @Get()
   listPlayers() {
     try{
@@ -41,6 +43,7 @@ export class PlayerControllerImpl implements PlayerController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(":id")
   update(@Body() datos: Player, @Param('id') id: number) {
     try{
