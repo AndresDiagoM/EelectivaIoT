@@ -124,3 +124,18 @@ La terminal responderá con el objeto creado. Si no se envía el token o el toke
 Utilizando POSTMAN, con el header de Authorization:
 
 ![Alt text](./img/post3.png "post3")
+
+13. Proteger el endpoint que tengan capacidad de modificar o eliminar registros.
+
+    * Proteger el endpoint GET.
+    ![Alt text](./img/get.png "get")
+
+    * Proteger el endpoint PUT.
+      * se observa put sin autorizaciòn:
+        ![Alt text](./img/put1.png "put1")
+      *Con autorizaciòn, sin usar cabecera de autorizaciòn: (debe dar error 401)
+        ![Alt text](./img/put2.png "put2")
+        *Con autorizaciòn, usando cabecera de autorizaciòn: (se cambia username a CR7)
+        ![Alt text](./img/put3.png "put3")
+
+
