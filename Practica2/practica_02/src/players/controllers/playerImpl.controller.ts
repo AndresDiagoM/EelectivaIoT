@@ -1,7 +1,8 @@
 import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, Put , UseGuards } from '@nestjs/common';
 import { PlayerService } from '../domain/services/player.service';
 
-import {Player} from '../domain/models/player.model';
+//import {Player} from '../domain/models/player.model';
+import { PlayerEntity } from 'src/players/domain/entities/player.entity';
 import { PlayerController } from './player.controller';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -20,7 +21,7 @@ export class PlayerControllerImpl implements PlayerController {
   constructor(@Inject('PlayerService') private readonly jugadorService: PlayerService) { }
 
   //@UseGuards(AuthGuard('local')) // Se adiciona esta anotación
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Get()
   listPlayers() {
     try{
@@ -32,9 +33,9 @@ export class PlayerControllerImpl implements PlayerController {
   }
 
   //@UseGuards(AuthGuard('local'))
-  @UseGuards(JwtAuthGuard) // Se adiciona esta anotación para proteger el endpoint
+  //@UseGuards(JwtAuthGuard) // Se adiciona esta anotación para proteger el endpoint
   @Post()
-  create(@Body() datos: Player) {
+  create(@Body() datos: PlayerEntity) { //Player
     try{
       return this.jugadorService.create(datos);
     }
@@ -45,7 +46,7 @@ export class PlayerControllerImpl implements PlayerController {
 
   @UseGuards(JwtAuthGuard)
   @Put(":id")
-  update(@Body() datos: Player, @Param('id') id: number) {
+  update(@Body() datos: PlayerEntity, @Param('id') id: number) {
     try{
       return this.jugadorService.update(id, datos);
     }

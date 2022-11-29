@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlayerControllerImpl = void 0;
 const common_1 = require("@nestjs/common");
-const player_model_1 = require("../domain/models/player.model");
+const player_entity_1 = require("../domain/entities/player.entity");
 const jwt_auth_guard_1 = require("../../auth/jwt-auth.guard");
 const errReturn = (e, message) => {
     return {
@@ -68,18 +68,16 @@ let PlayerControllerImpl = class PlayerControllerImpl {
     }
 };
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], PlayerControllerImpl.prototype, "listPlayers", null);
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [player_model_1.Player]),
+    __metadata("design:paramtypes", [player_entity_1.PlayerEntity]),
     __metadata("design:returntype", void 0)
 ], PlayerControllerImpl.prototype, "create", null);
 __decorate([
@@ -88,7 +86,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [player_model_1.Player, Number]),
+    __metadata("design:paramtypes", [player_entity_1.PlayerEntity, Number]),
     __metadata("design:returntype", void 0)
 ], PlayerControllerImpl.prototype, "update", null);
 __decorate([

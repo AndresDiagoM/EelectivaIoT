@@ -5,46 +5,46 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlayerServiceImpl = void 0;
 const common_1 = require("@nestjs/common");
+const player_entity_1 = require("../entities/player.entity");
+const typeorm_1 = require("typeorm");
+const typeorm_2 = require("@nestjs/typeorm");
 let PlayerServiceImpl = class PlayerServiceImpl {
-    constructor() {
-        this.player = [{
-                name: 'Leo',
-                lastName: 'Messi',
-                age: 35,
-                team: 'Argentina'
-            }];
+    constructor(repository) {
+        this.repository = repository;
     }
-    list() {
-        return this.player;
+    async list() {
+        return await this.repository.find();
     }
-    create(jugador) {
-        this.player.push(jugador);
-        return jugador;
+    async create(playerData) {
+        const newPlayer = await this.repository.insert(playerData);
+        return newPlayer;
     }
-    update(id, jugador) {
-        this.player[id] = jugador;
-        return this.player[id];
+    async update(id, playerData) {
+        const updatedPlayer = await this.repository.update(id, playerData);
+        return updatedPlayer;
     }
-    delete(id) {
-        const totalJugadoresAntes = this.player.length;
-        this.player = this.player.filter((val, index) => index != id);
-        if (totalJugadoresAntes == this.player.length) {
-            return false;
-        }
-        else {
-            return true;
-        }
+    async delete(id) {
+        const deleteResult = await this.repository.delete(id);
+        return deleteResult.affected > 0;
     }
-    updateAge(id, edad) {
-        this.player[id].age = edad;
-        return this.player[id];
+    async updateAge(id, edad) {
+        const updatedPlayer = await this.repository.update(id, { age: edad });
+        return updatedPlayer;
     }
 };
 PlayerServiceImpl = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_2.InjectRepository)(player_entity_1.PlayerEntity)),
+    __metadata("design:paramtypes", [typeorm_1.MongoRepository])
 ], PlayerServiceImpl);
 exports.PlayerServiceImpl = PlayerServiceImpl;
 //# sourceMappingURL=playerImpl.service.js.map

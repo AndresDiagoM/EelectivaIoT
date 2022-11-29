@@ -1,8 +1,9 @@
-import { Player } from "../models/player.model";
+import { InsertResult, UpdateResult } from 'typeorm';
+import { PlayerEntity } from '../entities/player.entity';
 export interface PlayerService {
-    list(): Player[];
-    create(player: Player): Player;
-    update(id: number, player: Player): Player;
-    delete(id: number): boolean;
-    updateAge(id: number, age: number): Player;
+    list(): Promise<PlayerEntity[]>;
+    create(player: PlayerEntity): Promise<InsertResult>;
+    update(id: number, playerData: PlayerEntity): Promise<UpdateResult>;
+    delete(id: number): Promise<boolean>;
+    updateAge(id: number, edad: number): Promise<UpdateResult>;
 }

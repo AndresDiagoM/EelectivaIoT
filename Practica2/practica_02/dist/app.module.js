@@ -12,17 +12,32 @@ const playerImpl_controller_1 = require("./players/controllers/playerImpl.contro
 const playerImpl_service_1 = require("./players/domain/services/playerImpl.service");
 const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
+const typeorm_1 = require("@nestjs/typeorm");
+const player_entity_1 = require("./players/domain/entities/player.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [auth_module_1.AuthModule, users_module_1.UsersModule],
+        imports: [
+            auth_module_1.AuthModule,
+            typeorm_1.TypeOrmModule.forRoot({
+                type: 'mongodb',
+                url: 'mongodb+srv://electiva:1234@cluster0.i6tmh9h.mongodb.net/?retryWrites=true&w=majority',
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+                synchronize: true,
+                logging: true,
+                autoLoadEntities: true,
+            }),
+            typeorm_1.TypeOrmModule.forFeature([player_entity_1.PlayerEntity]),
+            users_module_1.UsersModule,
+        ],
         controllers: [playerImpl_controller_1.PlayerControllerImpl],
         providers: [
             {
                 provide: 'PlayerService',
-                useClass: playerImpl_service_1.PlayerServiceImpl
-            }
+                useClass: playerImpl_service_1.PlayerServiceImpl,
+            },
         ],
     })
 ], AppModule);

@@ -1,10 +1,12 @@
-import { Player } from '../models/player.model';
 import { PlayerService } from './player.service';
+import { PlayerEntity } from '../entities/player.entity';
+import { InsertResult, MongoRepository, UpdateResult } from 'typeorm';
 export declare class PlayerServiceImpl implements PlayerService {
-    private player;
-    list(): Player[];
-    create(jugador: Player): Player;
-    update(id: number, jugador: Player): Player;
-    delete(id: number): boolean;
-    updateAge(id: number, edad: number): Player;
+    private readonly repository;
+    constructor(repository: MongoRepository<PlayerEntity>);
+    list(): Promise<PlayerEntity[]>;
+    create(playerData: PlayerEntity): Promise<InsertResult>;
+    update(id: number, playerData: PlayerEntity): Promise<UpdateResult>;
+    delete(id: number): Promise<boolean>;
+    updateAge(id: number, edad: number): Promise<UpdateResult>;
 }

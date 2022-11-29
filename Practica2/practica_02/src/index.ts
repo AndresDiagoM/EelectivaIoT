@@ -3,12 +3,12 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 
 const createNestServer = async (expressInstance) => {
-const app = await NestFactory.create(
-   AppModule,
-   new ExpressAdapter(expressInstance),
-);
+   const app = await NestFactory.create(
+      AppModule,
+      new ExpressAdapter(expressInstance),
+   );
 
-return app.init();
+   return app.init();
 };
 
 export default createNestServer;
