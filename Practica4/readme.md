@@ -104,6 +104,7 @@ Successfully created a new micro
  9. Para desplegar la aplicación ejecutamos en la terminal:
 
         deta deploy <nombre_proyecto>
+        /Documents/Servidores/Practica2$ deta deploy practica_02/
 
  10. Para activar los logs de la aplicación ejecutamos en la terminal:
 
@@ -116,3 +117,70 @@ Successfully created a new micro
 
 ![Alt text](./img/deta2.png "deta2")
 
+Para las pruebas hacer: 
+
+        cd practica_02
+        npm run start:dev
+
+Luego, obtener una key y usar auth con ella:
+
+        curl -X POST http://192.168.18.156:3000/auth/login -d '{"username": "john", "password": "changeme" }' -H "Content-Type: application/json"
+
+        KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTY2OTY4NjQ5NywiZXhwIjoxNjY5NjkwMDk3fQ.aBsoJ_7y14XzJmgyk3jvGF0Mti3jcYw-1iSfY5mcWpI
+
+Se hace la prueba con GET, usando POSTMAN, y Autenticación:
+![Alt text](./img/pruebas_get.png "deta2")
+
+Se prueba ingresando al link https://l3psn9.deta.dev/ y se obtiene la siguiente respuesta:
+
+![Alt text](./img/pruebas_get22.png "deta2")
+
+
+## 2. Conectado a una base de datos
+
+ 6. Instalar las dependencias de TypeORM y MongoDB ejecutando en la terminal:
+
+        npm install --save @nestjs/typeorm typeorm mongodb
+
+ 7. En el panel de mongo atlas, en la sección Connect seleccione la opción Connect your application. Copie la url de conexión y reemplace el valor de la variable MONGO_URL en el archivo ~/Documents/Servidores/practica_02/src/app.module.ts por la url de conexión.
+
+![Alt text](./img/mongo1.png "mongo1")
+
+ 8. Modifique el archivo src/app.module.ts para que quede de la siguiente manera:
+
+        import { TypeOrmModule } from '@nestjs/typeorm';
+        ...
+
+        @Module({
+        imports: [
+                AuthModule,
+                UsersModule,
+                TypeOrmModule.forRoot({
+                        type: 'mongodb',
+                        url: 'mongodb+srv://<usuario>:<password>...',
+                }),
+        ],
+        controllers: [PlayerControllerImpl],
+        providers: [
+                {
+                        provide: 'PlayerService',
+                        useClass: PlayerServiceImpl,
+                },
+        ],
+        })
+        export class AppModule {}
+
+ 9. Cree un archivo para modelar la entidad, eso queda en la carpeta src/<nombre_entidad>/domain/entities y debe llamarse <nombre_entidad>.entity.ts, en este caso player.entity.ts.
+
+ 10. Agrege la entidad en la configuración del módulo, para habilitar el repositorio 
+
+
+ 11. Luego adicione en el constructor del servicio, para el ejemplo src/player/domain/services/player.service.ts
+
+ 12. Idealmente en esta etapa se implementan puertos (ports), que se encargan a adaptar los datos de aplicación (models) a los datos del repositorio (entities). Para simplificar el ejemplo se omitirá esta etapa. Entonces se reemplazará la implementación del modelo Player por la entidad PlayerEntity en el servicio PlayerServiceImpl. De igual manera, como los datos toman tiempo para ser capturados del repositorio, se emplean Promesas. El cambio de Player a PlayerEntity se aplica en los servicios y controladores.
+
+ 13. Ahora es necesario modificar los métodos para que utilicen el repositorio, para el ejemplo src/player/domain/services/player.service.ts
+ 14. Finalmente, si se ejecuta el proyecto localmente con ``npm run start:dev``, ejecute un POST para crear un nuevo elemento. Si la respuesta es satisfactoria y si al ejecutar el GET se recupera el elemento creado, entonces la conexión con la base de datos fue exitosa.
+
+   Para esto, volver hacer deploy en Deta, y probar con POSTMAN, y Autenticación:
+![Alt text](./img/pruebas_post.png "deta2")
