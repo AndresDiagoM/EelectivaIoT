@@ -233,3 +233,12 @@ Se prueba ingresando al link https://l3psn9.deta.dev/ y se obtiene la siguiente 
 10. Ir a la sección deploy y conectar el repositorio de GitHub.
 
        git push heroku hexagonal
+
+Es posible realizar la conexión directamente a github, y elegir el branch a desplegar.
+![Alt text](./img/manual_deploy.png "manual")
+
+El link de la aplicación es: https://electivaiot.herokuapp.com/
+
+Se da click en view y se obtiene la siguiente respuesta:
+![Alt text](./img/heroku_1.png "heroku1")
+
