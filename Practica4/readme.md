@@ -184,3 +184,52 @@ Se prueba ingresando al link https://l3psn9.deta.dev/ y se obtiene la siguiente 
 
    Para esto, volver hacer deploy en Deta, y probar con POSTMAN, y Autenticación:
 ![Alt text](./img/pruebas_post.png "deta2")
+
+
+## 3. Nest js Deploy Heroku in 5 minutes.
+
+1. Crear una cuenta en Heroku. https://signup.heroku.com/
+
+2. Instalar Heroku CLI. https://devcenter.heroku.com/articles/heroku-cli
+
+       curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+       heroku --version
+       heroku login
+
+3. Crear una aplicación en Heroku. https://dashboard.heroku.com/apps
+
+4. Crear un repositorio en GitHub, y añadir a heroku.
+
+       heroku git:remote -a electivaiot
+
+5. Configurar el archivo main.ts para que quede de la siguiente manera:
+
+        import { NestFactory } from '@nestjs/core';
+        import { AppModule } from './app.module';
+        import { ValidationPipe } from '@nestjs/common';
+
+        async function bootstrap() {
+        const app = await NestFactory.create(AppModule);
+        app.useGlobalPipes(new ValidationPipe());
+        await app.listen(process.env.PORT || 3000);
+        }
+        bootstrap();
+
+6. Configurar el archivo package.json para que quede de la siguiente manera:
+
+       Añadir en scripts:
+        "start:prod": "node dist/main.js"
+
+7. Crear un archivo Procfile en la raíz del proyecto con el siguiente contenido:
+
+       web: npm run start:prod
+
+8. Ir Heroku y crear una nueva aplicación.
+
+9.  Ir a la sección setting y agregar las variables de entorno.
+
+![Alt text](./img/config_vars.png "heroku")
+
+10. Ir a la sección deploy y conectar el repositorio de GitHub.
+
+       git push heroku hexagonal
